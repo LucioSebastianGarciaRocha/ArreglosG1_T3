@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="Arreglo.UI.Consola/Arreglo.UI.Consola.csproj" />
+  <Project Path="Arreglos.Logica/Arreglos.Logica.csproj" />
+</Solution>
