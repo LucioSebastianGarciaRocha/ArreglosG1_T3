@@ -8,7 +8,7 @@ namespace Arreglos.Logica
     {
 
         //Atributos o campos 
-        private int _tope = 0;
+        private int _tope;
         private int[] _arreglo;
 
         //constructor 
@@ -30,12 +30,50 @@ namespace Arreglos.Logica
         public void Llenar(int minimo, int maximo)
         {
             Random oRandom = new Random();
-            for (int i = 0; i < N-1; i++)
+            for (int i = 0; i < N; i++)
             {
-                _arreglo[i] = oRandom.Next(minimo);
+                _arreglo[i] = oRandom.Next(minimo, maximo);
                 
             }
             _tope = N;
+
+        }
+
+        //Metodo ordenar(Burbuja)
+        public void Ordenar()
+        {
+            Ordenar(true);
+        }
+        public void Ordenar(bool ascendente)
+        {
+            for (int i = 0; i < _tope-1; i++)
+            {
+                for (int j = i + 1; j < _tope; j++)
+                {
+                    if (ascendente)
+                    { 
+                    if (_arreglo[i] > _arreglo[j])
+                    {
+                        Cambiar(ref _arreglo[i], ref _arreglo[j]);
+                    }
+                    }
+                    else
+                    {
+                        if (_arreglo[i] < _arreglo[j])
+                        {
+                            Cambiar(ref _arreglo[i], ref _arreglo[j]);
+                        }
+                    }
+                }
+            }
+        }
+        
+        //Metodo Cambiar 
+        public void Cambiar(ref int a, ref int b)
+        {
+            int aux = a;
+            a = b;
+            b = aux;
         }
         //Método ToString 
         public override string ToString()
