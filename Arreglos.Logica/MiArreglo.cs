@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Text;
 
 namespace Arreglos.Logica
@@ -75,7 +76,21 @@ namespace Arreglos.Logica
             a = b;
             b = aux;
         }
+
+        //Metodo agregar 
+
+        public void Agregar(int numero)
+        {
+            if (EstaLleno)
+            {
+                throw new Exception("El arreglo esta lleno");
+            }
+                _arreglo[_tope] = numero;
+                _tope++;
+            
+        }
         //Método ToString 
+
         public override string ToString()
         {
             if (EstaVacio)
