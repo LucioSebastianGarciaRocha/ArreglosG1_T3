@@ -25,8 +25,6 @@ namespace Arreglos.Logica
         public bool EstaLleno => _tope == N;
         public bool EstaVacio => _tope == 0;
 
-        //métodos llenar
-        public void LLenar(int minimo, int maximo)
         //etodo llenar sin parametro
         public void Llenar()
         {
@@ -163,6 +161,44 @@ namespace Arreglos.Logica
 
             return arregloPares;
         }
+        //Metodo obtener primos
+
+        public MiArreglo ObtenerPrimos()
+        {
+            int contadorPrimos = 0;
+            for (int i = 0; i < _tope; i++)
+            {
+                if (_arreglo[i] == 1) { continue; }//salta a la siguiente iteración
+                if (EsPrimo(_arreglo[i]))
+                {
+                    contadorPrimos++;
+                }
+            }
+            var arregloPrimos = new MiArreglo(contadorPrimos);
+            for (int i = 0; i < _tope; i++)
+            {
+                if (_arreglo[i] == 1) { continue; }//salta a la siguiente iteración
+                if (EsPrimo(_arreglo[i]))
+                {
+                    arregloPrimos.Agregar(_arreglo[i]);
+                }
+
+            }
+            return arregloPrimos;
+        }
+        //metodo EsPrimo
+        private bool EsPrimo(int n)
+        {
+            for (int i = 2; i < n; i++)
+            {
+                if (n % i == 0)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
 
         //método ToString
         public override string ToString()
@@ -172,11 +208,8 @@ namespace Arreglos.Logica
                 return "Esta vacio";
             }
 
-            string cadena = string.Empty;
-
             int contador = 0;
-            for (int i = 0; i < _tope + 1; i++)
-                string cadena = string.Empty;
+            string cadena = string.Empty;
             for (int i = 0; i < _tope; i++)
             {
                 //cadena = cadena+_arreglo[i];
