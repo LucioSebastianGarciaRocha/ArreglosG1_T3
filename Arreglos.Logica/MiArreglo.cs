@@ -1,18 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Security.Cryptography.X509Certificates;
 using System.Text;
 
 namespace Arreglos.Logica
 {
     public class MiArreglo
     {
-        //atributos o campos
+        //Atributos o campos
         private int _tope;
         private int[] _arreglo;
 
-        //constructor
+        //Constructor
         public MiArreglo(int n)
         {
             N = n;
@@ -20,18 +19,18 @@ namespace Arreglos.Logica
             _tope = 0;
         }
 
-        //propiedades
+        //Propiedades
         public int N { get; }
         public bool EstaLleno => _tope == N;
         public bool EstaVacio => _tope == 0;
 
-        //etodo llenar sin parametro
+        //Métodos
         public void Llenar()
         {
             Llenar(1, 100);
         }
 
-        //métodos llenar con parametro
+        //Método llenar con parametros
         public void Llenar(int minimo, int maximo)
         {
             Random oRandom = new Random();
@@ -42,14 +41,16 @@ namespace Arreglos.Logica
             _tope = N;
         }
 
-        //metodo ordenar (burbuja)
+        //Método ordenar (Burbuja)
         public void Ordenar()
         {
-            Ordenar(true);//si no tiene parametro, lo hace ascendente
+            Ordenar(true);
         }
+
+
         public void Ordenar(bool ascendente)
         {
-            for (int i = 0; i < _tope; i++)
+            for (int i = 0; i < _tope - 1; i++)
             {
                 for (int j = i + 1; j < _tope; j++)
                 {
@@ -61,18 +62,15 @@ namespace Arreglos.Logica
                         }
                     }
                     else
-                    {
                         if (_arreglo[i] < _arreglo[j])
                         {
                             Cambiar(ref _arreglo[i], ref _arreglo[j]);
                         }
-                    }
-
                 }
             }
         }
 
-        //metodo cambiar
+        //Método cambiar
         public void Cambiar(ref int a, ref int b)
         {
             int aux = a;
@@ -80,7 +78,7 @@ namespace Arreglos.Logica
             b = aux;
         }
 
-        //metodo agregar
+        //Método agregar
         public void Agregar(int numero)
         {
             if (EstaLleno)
@@ -91,7 +89,7 @@ namespace Arreglos.Logica
             _tope++;
         }
 
-        //metodo insertar
+        //Método Insertar
         public void Insertar(int numero, int posicion)
         {
             if (EstaLleno)
@@ -115,7 +113,7 @@ namespace Arreglos.Logica
             _tope++;
         }
 
-        //metodo eliminar
+        //Método eliminar
         public void Eliminar(int posicion)
         {
             if (EstaVacio)
@@ -130,6 +128,7 @@ namespace Arreglos.Logica
             {
                 posicion = _tope;
             }
+
             for (int i = posicion; i < _tope - 1; i++)
             {
                 _arreglo[i] = _arreglo[i + 1];
@@ -137,7 +136,6 @@ namespace Arreglos.Logica
             _tope--;
         }
 
-        //metodo pares
         public MiArreglo ObtenerPares()
         {
             int contadorPares = 0;
@@ -149,70 +147,100 @@ namespace Arreglos.Logica
                 }
             }
 
-            var arregloPares = new MiArreglo(contadorPares);
+            MiArreglo arregloPares = new MiArreglo(contadorPares);
             for (int i = 0; i < _tope; i++)
             {
                 if (_arreglo[i] % 2 == 0)
                 {
                     arregloPares.Agregar(_arreglo[i]);
                 }
-
             }
 
             return arregloPares;
         }
-        //Metodo obtener primos
 
+
+        //Metodo EsPar
+
+        private bool Espar(int n)
+        {
+            if (n % 2 == 0)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        //Metodo ObtenerPrimos
         public MiArreglo ObtenerPrimos()
         {
             int contadorPrimos = 0;
             for (int i = 0; i < _tope; i++)
             {
-                if (_arreglo[i] == 1) { continue; }//salta a la siguiente iteración
+                if (_arreglo[i] == 1)
+                {
+                    continue;
+                }
                 if (EsPrimo(_arreglo[i]))
                 {
                     contadorPrimos++;
                 }
+
             }
             var arregloPrimos = new MiArreglo(contadorPrimos);
+
             for (int i = 0; i < _tope; i++)
             {
-                if (_arreglo[i] == 1) { continue; }//salta a la siguiente iteración
+                if (_arreglo[i] == 1) { continue; }
                 if (EsPrimo(_arreglo[i]))
                 {
                     arregloPrimos.Agregar(_arreglo[i]);
                 }
-
             }
+
+
+
             return arregloPrimos;
+
         }
-        //metodo EsPrimo
+
+
+        //Metodo EsPrimo
         private bool EsPrimo(int n)
         {
-            for (int i = 2; i < n; i++)
+            for (int i = 2; i < Math.Sqrt(n); i++)
             {
+
                 if (n % i == 0)
                 {
                     return false;
                 }
+
             }
             return true;
+
         }
 
 
-        //método ToString
+        //Método ToString
         public override string ToString()
         {
             if (EstaVacio)
             {
+                Console.WriteLine("Hola");
                 return "Esta vacio";
+
             }
 
-            int contador = 0;
+
+
+
             string cadena = string.Empty;
-            for (int i = 0; i < _tope; i++)
+            int contador = 0;
+
+            for (int i = 0; i < _tope - 1; i++)
             {
-                //cadena = cadena+_arreglo[i];
+                //cadena = cadena + _arreglo[i]; es la misma instruccion que la de abajo
                 cadena += $"{_arreglo[i]}\t";
                 contador++;
                 if (contador > 9)
@@ -221,8 +249,9 @@ namespace Arreglos.Logica
                     cadena += "\n";
                 }
             }
-            return cadena;
 
+            return cadena;
         }
+
     }
 }
